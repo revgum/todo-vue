@@ -1,11 +1,11 @@
-import { API_BASE_URL } from '../constants'
+import { API_BASE_URL } from '../constants';
 
 export const getTodos = () => async () => {
   const response = await fetch(`${API_BASE_URL}/todos`, {
-    credentials: 'include'
-  })
+    credentials: 'include',
+  });
   if (!response.ok) {
-    throw new Error(response.statusText)
+    throw new Error(response.statusText);
   }
-  return response.json()
-}
+  return response.json();
+};

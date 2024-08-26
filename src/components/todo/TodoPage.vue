@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { getTodos } from '@/lib/api/todo'
-import { apiStore } from '@/lib/apiStore'
-import { useQuery } from '@tanstack/vue-query'
+import { getTodos } from '@/lib/api/todo';
+import { apiStore } from '@/lib/apiStore';
+import { useQuery } from '@tanstack/vue-query';
+import TodoList from './TodoList.vue';
 
-const store = apiStore()
+const store = apiStore();
 
-const { data, error, isFetching } = useQuery({
-  queryKey: ['getTodos', store.apiToken],
-  queryFn: getTodos()
-})
+const { data } = useQuery({
+  queryKey: ['getTodos', store.password],
+  queryFn: getTodos(),
+});
 </script>
 
 <template>
-  <span v-if="isFetching">Fetching : {{ isFetching }}</span>
-  <span v-if="error">Error : {{ error }}</span>
-  <span v-if="data">Data : {{ data }}</span>
+  <TodoList v-if="data.todos.length" :todos="data.todos" />
+  <div v-else class="text-gray p-8">Nothing left todo.</div>
 </template>
