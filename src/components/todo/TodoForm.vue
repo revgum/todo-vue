@@ -8,7 +8,8 @@ import { DateTime } from 'luxon';
 import { storeToRefs } from 'pinia';
 import { onUpdated, ref } from 'vue';
 
-const today = DateTime.fromISO(DateTime.now().toISO()).toFormat('yyyy-MM-dd');
+const formattedDate = (isoDate: string) => DateTime.fromISO(isoDate).toFormat('yyyy-MM-dd');
+let today = formattedDate(DateTime.now().toISO());
 
 const { editTodo } = storeToRefs(todoStore());
 
@@ -29,6 +30,10 @@ const title = ref();
 const dueAt = ref(today);
 
 onUpdated(() => {
+  // Keep today updated for if the form is reset after a successful mutation
+  // over midnight. :D
+  today = formattedDate(DateTime.now().toISO());
+
   // Update refs to match the todo being edited
   if (editTodo.value) {
     id.value = editTodo.value?.id;
