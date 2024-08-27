@@ -8,6 +8,8 @@ import { DateTime } from 'luxon';
 import { storeToRefs } from 'pinia';
 import { onUpdated, ref } from 'vue';
 
+const today = DateTime.fromISO(DateTime.now().toISO()).toFormat('yyyy-MM-dd');
+
 const { editTodo } = storeToRefs(todoStore());
 
 const queryClient = useQueryClient();
@@ -18,13 +20,13 @@ const { mutate } = useMutation({
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.todo.list] });
     id.value = '';
     title.value = '';
-    dueAt.value = DateTime.fromISO(DateTime.now().toISO()).toFormat('yyyy-MM-dd');
+    dueAt.value = today;
   },
 });
 
 const id = ref();
 const title = ref();
-const dueAt = ref(DateTime.fromISO(DateTime.now().toISO()).toFormat('yyyy-MM-dd'));
+const dueAt = ref(today);
 
 onUpdated(() => {
   // Update refs to match the todo being edited
