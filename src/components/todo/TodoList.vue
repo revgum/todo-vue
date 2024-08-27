@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Todo } from '@/lib/types';
 import { CheckCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import * as stores from '@/lib/stores';
 import ActionButton from './ActionButton.vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { deleteTodo, updateTodo } from '@/lib/api/todo';
@@ -10,6 +11,8 @@ import { DateTime } from 'luxon';
 const props = defineProps<{
   todos: Todo[];
 }>();
+
+const todoStore = stores.todoStore();
 
 const queryClient = useQueryClient();
 
@@ -59,7 +62,11 @@ const { mutate: completeMutate } = useMutation({
         <CheckCircleIcon class="size-4 mr-2" />
         Complete
       </ActionButton>
-      <ActionButton v-if="!todo.completedAt" class="text-gray-400">
+      <ActionButton
+        v-if="!todo.completedAt"
+        class="text-gray-400"
+        @click="todoStore.editTodo = todo"
+      >
         <PencilSquareIcon class="size-4 mr-2" />
         Edit
       </ActionButton>

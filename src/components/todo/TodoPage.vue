@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { getTodos } from '@/lib/api/todo';
-import { apiStore } from '@/lib/apiStore';
+import * as stores from '@/lib/stores';
 import { useQuery } from '@tanstack/vue-query';
 import TodoList from './TodoList.vue';
 import TodoForm from './TodoForm.vue';
 import { QUERY_KEYS } from '@/lib/constants';
 
-const store = apiStore();
+const apiStore = stores.apiStore();
 
 const { data } = useQuery({
-  queryKey: [QUERY_KEYS.todo.list, store.password],
+  queryKey: [QUERY_KEYS.todo.list, apiStore.password],
   queryFn: getTodos,
   initialData: { todos: [] },
 });

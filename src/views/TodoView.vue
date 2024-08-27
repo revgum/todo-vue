@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { apiStore } from '@/lib/apiStore';
+import { apiStore } from '@/lib/stores/api';
 import { storeToRefs } from 'pinia';
 import TodoPage from '../components/todo/TodoPage.vue';
 import LoginForm from '@/components/LoginForm.vue';

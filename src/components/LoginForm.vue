@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { login } from '@/lib/api/login';
-import { apiStore } from '@/lib/apiStore';
+import { apiStore } from '@/lib/stores';
 import { useQuery } from '@tanstack/vue-query';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';

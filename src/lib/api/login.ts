@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '../constants';
-import { apiStore } from '../apiStore';
+import { apiStore } from '../stores/api';
 
 const store = apiStore();
 
